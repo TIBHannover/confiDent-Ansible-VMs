@@ -1,0 +1,13 @@
+---
+- name: 1. Apache2 Webserver
+  package:
+    name: apache2
+    state: present
+
+- name: 2. Apache2 mdoules 
+  apache2_module:
+      state: present
+      name: "{{ item }}"
+  loop:
+      - rewrite
+      - userdir

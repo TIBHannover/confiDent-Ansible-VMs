@@ -1,0 +1,8 @@
+---
+- name: Enable MW Pre-Bundled Extensions
+  lineinfile:
+    path: '{{mediawiki_path}}/LocalSettings.php'
+    insertafter: EOF
+    line: "# {{ item.ext_name }}\n{{item.load_strs | join('\n')}}\n"  
+  with_items:
+    - '{{ extensions_bundled }}'

@@ -1,0 +1,63 @@
+extensions_bundled:
+  - ext_name: "Cite"
+    load_strs: 
+      - "wfLoadExtension('Cite');"
+  - ext_name: "CodeEditor"
+    load_strs: 
+      - "wfLoadExtension('CodeEditor');"
+      - "$wgDefaultUserOptions['usebetatoolbar'] = 1;"
+  - ext_name: "ParserFunctions"
+    load_strs: 
+      - "wfLoadExtension('ParserFunctions');"
+  - ext_name: "Renameuser"
+    load_strs: 
+      - "wfLoadExtension('Renameuser');"
+  - ext_name: "SyntaxHighlight_GeSHi"
+    load_strs:
+      - "wfLoadExtension('SyntaxHighlight_GeSHi');" 
+      - "$wgSyntaxHighlightModels[CONTENT_MODEL_SCRIBUNTO] = 'lua';"    
+  - ext_name: "WikiEditor"
+    load_strs: 
+      - "wfLoadExtension( 'WikiEditor' );"    
+  - ext_name: "Scribunto"
+    load_strs:
+      - "wfLoadExtension( 'Scribunto' );"
+      - "$wgScribuntoDefaultEngine = 'luastandalone';"
+      - "$wgScribuntoUseGeSHi = true;"
+      - "$wgScribuntoUseCodeEditor = true;"
+  - ext_name: "SpamBlacklist"
+    load_strs: 
+      - "wfLoadExtension( SpamBlacklist );"    
+
+extensions_smw:
+  - ext_name: "Semantic Mediawiki"
+    load_strs: 
+      - "enableSemantics( '{{server_name}}' );"
+      - "$smwgShowFactbox=true;"
+      - "$smwgFieldTypeFeatures=SMW_FIELDT_CHAR_NOCASE;"
+      - "$smwgQMaxInlineLimit=1500;"
+      - "$smwgQMaxInlineLimitSets=1500;"
+      - "$smwgChangePropagationProtection=true;"
+
+extensions_composer:
+  - ext_name: "Semantic Mediawiki"
+    composer_cmd: 'mediawiki/semantic-media-wiki "{{smw_version}}"'
+    load_strs: 
+      - "enableSemantics( '{{server_name}}' );"
+      - "$smwgShowFactbox=true;"
+      - "$smwgFieldTypeFeatures=SMW_FIELDT_CHAR_NOCASE;"
+      - "$smwgQMaxInlineLimit=1500;"
+      - "$smwgQMaxInlineLimitSets=1500;"
+      - "$smwgChangePropagationProtection=true;"
+  - ext_name: "Semantic Scribunto"
+    composer_cmd: 'mediawiki/semantic-scribunto "{{semanticscribunto_version}}"'
+    load_strs: 
+      - "wfLoadExtension( 'SemanticScribunto' );"
+  - ext_name: "Semantic Cite"
+    composer_cmd: 'mediawiki/semantic-cite "{{semanticite_version}}"'
+    load_strs: 
+      - "wfLoadExtension( 'SemanticCite' );"
+  - ext_name: "Semantic Result Formats"
+    composer_cmd: 'mediawiki/semantic-result-formats "{{semanticformats_version}}"'
+    load_strs:
+      - "wfLoadExtension('SemanticResultFormats');"

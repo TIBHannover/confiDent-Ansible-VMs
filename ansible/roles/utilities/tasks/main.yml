@@ -1,0 +1,17 @@
+---
+
+- name: 1. Install aptitude
+  package:
+    name: aptitude
+    state: present
+
+- name: 2. Update and upgrade apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 #One day
+
+- name: 3. Install imagemagick
+  package:
+    name: imagemagick
+    state: present

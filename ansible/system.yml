@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  vars_files: ../passwd.yml 
+  roles:
+    - utilities
+    - git
+    - mariadb
+    - apache
+    - php
+    # - mediawiki

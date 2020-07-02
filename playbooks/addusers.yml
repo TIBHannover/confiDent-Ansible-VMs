@@ -1,0 +1,31 @@
+- hosts: all
+  become: yes
+  become_user: root
+  vars_files: ../passwd.yml 
+  vars:
+    defaultpassw: $1$SomeSalt$Dc6bOE4yG55s66k2vnJKK.
+  tasks:
+    - name: 1. include vars
+      include_vars:
+        file: users.yml
+        name: users
+
+    - name: 2. addusers
+      user:
+        name: "{{ item.key }}"
+        password: "{{defaultpassw}}"
+        expires: -1
+        groups: sudo
+        append: yes
+        shell: /bin/bash
+      loop:
+        "{{ users | dict2items }}"
+      become: yes
+
+    - name: 3. add ssh keys
+      authorized_key:
+        user: "{{ item.key }}"
+        key: "{{ item.value }}"
+      loop:
+        "{{ users | dict2items }}"
+

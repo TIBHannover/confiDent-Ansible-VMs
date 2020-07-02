@@ -1,0 +1,40 @@
+---
+- name: 1 php - install php
+  package:
+    pkg: "php"
+    state: "present"
+
+- name: 2. php - install base packages
+  package:
+    pkg: "{{ item }}"
+    state: "present"
+  loop:
+    - "php-common"
+    - "php-cli"
+    - "php-fpm"
+    - "php-pgsql"
+    - "php-mysql"
+    - "php-gd"
+    - "php-bz2"
+    - "php-zip"
+    - "php-json"
+    - "php-xml"
+    - "php-curl"
+    - "php-intl"
+    - "php-mbstring"
+    - "php-bcmath"
+    - "php-soap"
+    - "php-opcache"
+    - "libapache2-mod-php"
+  notify: restart_apache2      
+
+- name: 3. info.php in web dir root
+  copy:
+    src: info.php
+    dest: /var/www/html
+    owner: www-data
+    group: www-data
+
+- name: Message
+  debug:
+    msg: Check http://{{inventory_hostname}}/info.php

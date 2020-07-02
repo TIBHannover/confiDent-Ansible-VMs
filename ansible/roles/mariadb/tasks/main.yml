@@ -1,0 +1,32 @@
+---
+- name: 1. Install MariaDB server package
+  package:
+    name: mariadb-server
+    state: present
+
+- name: 2. Configure MariaDB@vm.local
+  template:
+    src:  mysql.cnf
+    dest: /etc/mysql/my.cnf
+    mode: o-rw
+  when: ansible_facts.hostname is search("mediawiki")
+
+
+- name: 2. Configure MariaDB@vm.local
+  template:
+    src:  mysql.cnf
+    dest: /etc/mysql/my.cnf
+    mode: o-rw
+  when: ansible_facts.hostname is search("confident")
+
+- name: 3. Start Mysql Service
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: install python-pymysql to work with ansible mysql modules
+  apt:
+    state: "present"
+    pkg: python-pymysql
+

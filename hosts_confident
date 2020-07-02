@@ -1,0 +1,10 @@
+[confident:vars]
+ansible_user=castroa 
+ansible_become=yes
+ansible_become_method=sudo
+ansible_become_pass='{{ confident_sudo_pass }}'
+
+[confident]
+tib.confident.service
+tib.confident.test
+tib.confident.dev

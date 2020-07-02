@@ -1,0 +1,13 @@
+---
+- hosts: all
+  vars_files: ../passwd.yml 
+  tasks:
+    - name: Ansible Facts
+      debug:
+        msg: "{{ ansible_facts }}"
+      when: ansible_facts.hostname is search("mediawiki")
+
+    - name: Hostname
+      debug:
+        msg: "{{ ansible_facts.hostname }}"
+      when: ansible_facts.hostname is search("confident")
