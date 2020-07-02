@@ -1,11 +1,11 @@
-# confiDent Ansible  VM management
+# confiDent - Ansible VM management playbooks
 Fork of [semantic-mediawiki-box](https://github.com/TIBHannover/semantic-mediawiki-box), by [Mirjan Hoffmann](https://github.com/mirjan-hoffmann)
 
 **This project is intended to automate the process of installing and configuring a LAMP server, ready to host Mediawiki instances.**
 
 Currently the Mediawiki installation is disabled.
 
-## Requeriments
+## Requirements
 * Ansible
 * Vagrant
 
@@ -54,16 +54,3 @@ The vault file passwd.yml holds *secrets* used by the playbook, namely the varia
 * run ansible command with `--ask-vault-pass`:
     * `ansible-playbook playbooks/addusers.yml --ask-vault-pass --extra-vars '@passwd.yml'`
 * reset vaul file password: `ansible-vault rekey passwd.yml`
-
-
-
-
-# How to:
-
-## test against local VM
-
-* bring VM up `vagrant up`
-* run ansible playbook to create VM: `ansible-playbook ansible/system.yml`
-
-
-
