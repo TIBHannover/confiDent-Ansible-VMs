@@ -80,7 +80,7 @@
 
   - name: 12.copy grobid config file
     copy:
-      src: config.yml
+      src: config.yaml
       dest: "{{ bin_dir }}/grobid-installation/grobid-service/config/"
       force: yes
     tags: service

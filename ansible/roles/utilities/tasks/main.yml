@@ -4,24 +4,29 @@
   package:
     name: aptitude
     state: present
+  tags: utilities
 
 - name: 2. Update and upgrade apt packages
   apt:
     upgrade: yes
     update_cache: yes
     cache_valid_time: 86400 #One day
+  tags: utilities
 
 - name: 3. Install imagemagick
   package:
     name: imagemagick
     state: present
+  tags: utilities
 
 - name: 4. Install zip
   package:
     name: zip
     state: present
+  tags: utilities
 
 - name: 5. Install wget
   package:
     name: wget
     state: present
+  tags: utilities
