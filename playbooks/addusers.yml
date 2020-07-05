@@ -1,7 +1,7 @@
 - hosts: all
   become: yes
   become_user: root
-  vars_files: ../passwd.yml 
+  vars_files: passwd.yml 
   vars:
     defaultpassw: $1$SomeSalt$Dc6bOE4yG55s66k2vnJKK.
   tasks:

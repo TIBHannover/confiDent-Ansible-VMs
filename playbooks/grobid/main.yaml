@@ -1,0 +1,108 @@
+---
+  # Instruction for Installing Grobid:
+  #  https://grobid.readthedocs.io/en/latest/
+- hosts: all
+  become: yes
+  become_user: root
+  vars_files: ../../passwd.yml 
+  vars:
+    bin_dir: /usr/local/bin
+  tasks:
+  - name: 1. Install JDK
+    package:
+        name: default-jdk
+        state: present
+    tags: install
+
+  - name: 2. Install Gradle (build system for the JVM)
+    package:
+        name: gradle
+        state: present
+    tags: install
+
+  - name: 3. Check GROBID src dir
+    stat:
+      path: "{{ bin_dir }}/grobid"
+    register: grobid_dir
+    tags: install
+
+  - name: 4. Download  & unzip GROBID
+    unarchive:
+      src: https://github.com/kermitt2/grobid/archive/0.6.0.zip
+      dest: "{{ bin_dir }}"
+      creates: "{{ bin_dir }}/grobid"
+      remote_src: yes
+    when: not grobid_dir.stat.exists
+    tags: install
+  
+  - name: 5. Rename grobid-0.6.0 grobid
+    shell:
+      cmd: mv "{{ bin_dir }}/grobid-0.6.0/" "{{ bin_dir }}/grobid/" 
+    tags: install
+
+  - name: 6. Build GROBID
+    shell:
+      chdir: "{{ bin_dir }}/grobid/"
+      cmd: ./gradlew clean install
+    tags: install
+
+  - name: 7. mdkir grobrid-installation
+    file:
+      path: "{{ bin_dir }}/grobid-installation/grobid-home" 
+      state: directory
+      mode: o+rw
+    tags: service
+
+  - name: 8. unzip grobid-service & rename
+    unarchive:
+      src: "{{ bin_dir }}/grobid/grobid-service/build/distributions/grobid-service-0.6.0.zip"
+      dest: "{{ bin_dir }}/grobid-installation"
+      remote_src: yes
+    tags: service
+
+  - name: 9. delete grobid-service-0.6.0
+    file:
+      path: "{{ bin_dir }}/grobid-installation/grobid-service/grobid-service-0.6.0"
+      state: absent
+    tags: service
+
+  - name: 10. rename grobid-service-0.6.0
+    shell:
+      cmd: mv "{{ bin_dir }}/grobid-installation/grobid-service-0.6.0" "{{ bin_dir }}/grobid-installation/grobid-service"
+    tags: service
+
+  - name: 11. unzip grobid-home
+    unarchive:
+      src: "{{ bin_dir }}/grobid/grobid-home/build/distributions/grobid-home-0.6.0.zip"
+      dest: "{{ bin_dir }}/"
+      remote_src: yes
+    tags: service
+
+  - name: 12.copy grobid config file
+    copy:
+      src: config.yml
+      dest: "{{ bin_dir }}/grobid-installation/grobid-service/config/"
+      force: yes
+    tags: service
+
+  - name: 13. grobid-service start
+    copy:
+      src: grobid.service
+      dest: /etc/systemd/system
+      force: yes
+    tags: service
+
+  - name: 14. Run grobid-service
+    systemd:
+      state: started
+      name: grobid
+      daemon_reload: yes
+    tags: service
+  
+  - name: 15. Message
+    debug:
+      msg: "GROBID running at in {{ ansible_facts.hostname }} at http://{{ inventory_hostname }}:8070/api/version"
+    tags: debug
+
+
+

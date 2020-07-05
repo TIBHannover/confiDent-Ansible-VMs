@@ -1,0 +1,13 @@
+[Unit]
+Description=Grobid
+After=network.target
+Wants=network.target
+
+[Service]
+WorkingDirectory=/usr/local/bin/
+ExecStart=/usr/local/bin/grobid-installation/grobid-service/bin/grobid-service server /usr/local/bin/grobid-installation/grobid-service/config/config.yaml
+Restart=on-abort
+
+
+[Install]
+WantedBy=multi-user.target

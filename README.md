@@ -32,6 +32,9 @@ Currently the Mediawiki installation is disabled.
 * against local VM(s): `ansible-playbook -i hosts playbooks/addusers.yml --ask-vault-pass ` 
 * against confident hosts: `ansible-playbook -i hosts_confident playbooks/addusers.yml --ask-vault-pass `
 
+### Grobid playbook
+`ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`
+
 ## Variables' locations:
 * <s>MW & MariaDB vars: `ansible/roles/mediawiki/defaults/main.yml`</s>
 * <s>MW extensions: `ansible/roles/mediawiki/vars/extensions.yml`</s>

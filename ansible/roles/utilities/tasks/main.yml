@@ -15,3 +15,13 @@
   package:
     name: imagemagick
     state: present
+
+- name: 4. Install zip
+  package:
+    name: zip
+    state: present
+
+- name: 5. Install wget
+  package:
+    name: wget
+    state: present
