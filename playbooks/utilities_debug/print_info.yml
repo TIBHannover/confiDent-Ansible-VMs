@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  vars_files: ../passwd.yml 
+  vars_files: ../../passwd.yml 
   tasks:
     - name: Ansible Facts
       debug:

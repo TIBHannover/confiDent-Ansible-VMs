@@ -4,7 +4,17 @@ ansible_become=yes
 ansible_become_method=sudo
 ansible_become_pass='{{ confident_sudo_pass }}'
 
-[confident]
-tib.confident.service
-tib.confident.test
+
+[confident.dev]
 tib.confident.dev
+
+[confident.test]
+tib.confident.test
+
+[confident.service]
+tib.confident.service
+
+[confident:children]
+confident.service
+confident.test
+confident.dev

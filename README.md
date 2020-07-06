@@ -32,6 +32,9 @@ Currently the Mediawiki installation is disabled.
 * against local VM(s): `ansible-playbook -i hosts playbooks/addusers.yml --ask-vault-pass ` 
 * against confident hosts: `ansible-playbook -i hosts_confident playbooks/addusers.yml --ask-vault-pass `
 
+## run single playbook against a single inventory host
+`ansible-playbook -i hosts_confident playbooks/utilities_debug/print_info.yml --ask-vault-pass --limit tib.confident.test`
+
 ### Grobid playbook
 `ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`
 
