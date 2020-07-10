@@ -10,4 +10,5 @@
       name: "{{ item }}"
   loop:
       - rewrite
-      - userdir
+      - proxy
+      - proxy_http
