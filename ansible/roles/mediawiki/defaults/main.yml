@@ -14,12 +14,12 @@ mediawiki_skins:
 
 admin_user:
   name: Admin
-  pass: adminpwd
+  pass: '{{ confident_wiki_admin_pwd }}'
 mediawiki_db:
   connection: mysql
   name: mw_{{instance_name}}
   user: mw_{{ instance_name | truncate(16-3, True, '') }}
-  password: mediawiki
+  password: '{{ confident_wiki_db_pwd }}'
 
 smw_version: '~3.1'
 semanticscribunto_version: '~2.1'

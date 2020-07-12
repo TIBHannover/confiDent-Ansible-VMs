@@ -19,6 +19,22 @@ Currently the Mediawiki installation is disabled.
 * `Vagrantfile` vagrant configuration for the creation of the local VM
 
 
+## Variables' locations:
+* <s>MW & MariaDB vars: `ansible/roles/mediawiki/defaults/main.yml`</s>
+* <s>MW extensions: `ansible/roles/mediawiki/vars/extensions.yml`</s>
+* Usernames and keys (used by `playbooks/addusers.yml`) `playbooks/vars/users.yml`
+
+
+## Use ansible-vault to hold *secrets*
+
+The vault file passwd.yml holds *secrets* used by the playbook, namely the variables:
+* `confident_sudo_pass` used in hosts_confident
+* `confident_mariadb_root_pass` used in ansible/roles/mariadb/templates/mysql.confident.cnf
+* `default_mariadb_root_pass` used in ansible/roles/mariadb/templates/mysql.cnf
+* `confident_wiki_db_pwd` used in ansible/roles/mediawiki/defaults/main.yml
+* `confident_wiki_admin_pwd` used in ansible/roles/mediawiki/defaults/main.yml
+
+
 # Run
 ## all roles from system.yml on local VM
 * bring VM up `vagrant up`
@@ -40,24 +56,6 @@ Currently the Mediawiki installation is disabled.
 
 
 
-
-
-### Grobid playbook
-`ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`
-
-## Variables' locations:
-* <s>MW & MariaDB vars: `ansible/roles/mediawiki/defaults/main.yml`</s>
-* <s>MW extensions: `ansible/roles/mediawiki/vars/extensions.yml`</s>
-* Usernames and keys (used by `playbooks/addusers.yml`) `playbooks/vars/users.yml`
-
-
-## Use ansible-vault to hold *secrets*
-
-The vault file passwd.yml holds *secrets* used by the playbook, namely the variables:
-* `confident_sudo_pass` used in hosts_confident
-* `confident_mariadb_root_pass` used in ansible/roles/mariadb/templates/mysql.confident.cnf
-* `default_mariadb_root_pass` used in ansible/roles/mariadb/templates/mysql.cnf
-
 ### Create ansible-vault file
 * create `ansible-vault create passwd.yml`
 * add variable to vaulfile  
@@ -67,3 +65,11 @@ The vault file passwd.yml holds *secrets* used by the playbook, namely the varia
 * run ansible command with `--ask-vault-pass`:
     * `ansible-playbook playbooks/addusers.yml --ask-vault-pass --extra-vars '@passwd.yml'`
 * reset vaul file password: `ansible-vault rekey passwd.yml`
+
+
+
+# Individual Playbooks
+## Grobid playbook
+`ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`
+
+
