@@ -1,7 +1,8 @@
 ---
 
-- name: Install composer
+- name: 2.1 Install composer
   package:
     name: composer
     state: present
   tags: php
+  

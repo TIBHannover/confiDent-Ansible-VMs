@@ -15,13 +15,6 @@
 
 - include: composer.yml
 
-
-- name: 3. Install mediawiki dependencies
-  shell: 
-    cmd: composer install --no-dev
-    chdir: '{{ mediawiki_path }}'
-  become: no
-
 - include: mysql.yml
   when: mediawiki_db.connection == "mysql"
 
