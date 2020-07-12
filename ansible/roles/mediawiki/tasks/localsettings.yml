@@ -1,0 +1,56 @@
+---
+
+- name: chmod images dir
+  file:
+    path: '{{mediawiki_path}}/images'
+    mode: chmod a+rw
+    recurse: yes
+
+- name: Enable uploads in LocalSetting.php
+  blockinfile:
+    path: '{{mediawiki_path}}/LocalSettings.php'
+    insertafter: EOF
+    block: |
+        $wgEnableUploads = true;
+        $wgUseImageMagick = true;
+        $wgImageMagickConvertCommand = "/usr/bin/convert";
+        \n
+
+- name: Permissions in LocalSetting.php
+  blockinfile:
+    path: '{{mediawiki_path}}/LocalSettings.php'
+    insertafter: EOF
+    block: |
+        # Permissions
+        $wgGroupPermissions['*']['read'] = true;
+        $wgGroupPermissions['*']['edit'] = false;
+        $wgGroupPermissions['user']['edit'] = false;
+        $wgGroupPermissions['*']['createaccount'] = false;
+        \n
+
+- name: no Job Rate  in LocalSetting.php
+  blockinfile:
+    path: '{{mediawiki_path}}/LocalSettings.php'
+    insertafter: EOF
+    block: |
+        $wgJobRunRate = 0;
+        \n
+
+- name: runJobs every minute
+  cron: 
+    name: "run MW jobs"
+    minute: "*/1"
+    job: ' /usr/bin/php {{ mediawiki_path }}/maintenance/runJobs.php --maxtime=3600'
+
+- name: Debug in LocalSetting.php
+  blockinfile:
+    path: '{{mediawiki_path}}/LocalSettings.php'
+    insertafter: EOF
+    block: |
+        # Debug
+        $wgShowExceptionDetails=true;
+        $wgShowSQLError=true;
+        $wgShowDBErrorBacktrace=true;
+        error_reporting(-1);
+        ini_set('display_errors',1);
+        \n

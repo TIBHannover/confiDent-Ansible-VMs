@@ -51,6 +51,8 @@
   args:
     creates: '{{ mediawiki_path }}/LocalSettings.php'
 
+- include: localsettings.yml
+
 - include: extensions.yml
 
 - include: extensions_composer.yml
