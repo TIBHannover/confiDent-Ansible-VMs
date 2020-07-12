@@ -1,0 +1,20 @@
+---
+- name: Install Git Extensions
+  git:  
+    repo: '{{ item.repo }}'
+    dest: '{{ item.dest }}'
+    version: '{{ item.version }}'
+    depth: 1
+    force: yes
+  with_items:
+    - '{{ extensions_git }}'
+  tags: git_ext
+
+- name: Enable Git Extensions
+  lineinfile:
+    path: '{{mediawiki_path}}/LocalSettings.php'
+    insertafter: EOF
+    line: "# {{ item.ext_name }}\n{{item.load_strs | join('\n')}}\n"  
+  with_items:
+    - '{{ extensions_git }}'
+  tags: git_ext

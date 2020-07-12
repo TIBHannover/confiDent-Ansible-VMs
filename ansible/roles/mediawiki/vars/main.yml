@@ -28,6 +28,9 @@ extensions_bundled:
   - ext_name: "SpamBlacklist"
     load_strs: 
       - "wfLoadExtension( SpamBlacklist );"    
+  - ext_name: "Nuke"
+    load_strs: 
+      - "wfLoadExtension( Nuke );"    
 
 extensions_smw:
   - ext_name: "Semantic Mediawiki"
@@ -49,10 +52,6 @@ extensions_composer:
       - "$smwgQMaxInlineLimit=1500;"
       - "$smwgQMaxInlineLimitSets=1500;"
       - "$smwgChangePropagationProtection=true;"
-  - ext_name: "Semantic Scribunto"
-    composer_cmd: 'mediawiki/semantic-scribunto "{{semanticscribunto_version}}"'
-    load_strs: 
-      - "wfLoadExtension( 'SemanticScribunto' );"
   - ext_name: "Semantic Cite"
     composer_cmd: 'mediawiki/semantic-cite "{{semanticite_version}}"'
     load_strs: 
@@ -61,3 +60,30 @@ extensions_composer:
     composer_cmd: 'mediawiki/semantic-result-formats "{{semanticformats_version}}"'
     load_strs:
       - "wfLoadExtension('SemanticResultFormats');"
+
+extensions_git:
+  - ext_name: 'PageForms'
+    repo: 'https://gerrit.wikimedia.org/r/mediawiki/extensions/PageForms.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/PageForms'
+    load_strs: 
+      - "wfLoadExtension( 'PageForms' );"
+  - ext_name: 'ParserFunctions'
+    repo: 'https://github.com/wikimedia/mediawiki-extensions-ParserFunctions.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/ParserFunctions'
+    load_strs: 
+      - "wfLoadExtension( 'ParserFunctions' );"
+  - ext_name: 'Interwiki'
+    repo: 'https://gerrit.wikimedia.org/r/mediawiki/extensions/Interwiki.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/Interwiki'
+    load_strs: 
+      - "wfLoadExtension( 'Interwiki' );"
+      - "$wgGroupPermissions['sysop']['interwiki'] = true;"
+  - ext_name: 'AdminLinks'
+    repo: 'https://gerrit.wikimedia.org/r/mediawiki/extensions/AdminLinks.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/AdminLinks'
+    load_strs: 
+      - "wfLoadExtension( 'AdminLinks' );"
