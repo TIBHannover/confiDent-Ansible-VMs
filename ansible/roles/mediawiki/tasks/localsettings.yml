@@ -3,7 +3,7 @@
 - name: chmod images dir
   file:
     path: '{{mediawiki_path}}/images'
-    mode: chmod a+rw
+    mode: a+rw
     recurse: yes
 
 - name: Enable uploads in LocalSetting.php
