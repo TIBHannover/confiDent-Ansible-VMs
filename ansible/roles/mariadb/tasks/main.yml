@@ -12,9 +12,9 @@
   when: ansible_facts.hostname is search("mediawiki")
 
 
-- name: 2. Configure MariaDB@vm.local
+- name: 2. Configure MariaDB@confident
   template:
-    src:  mysql.cnf
+    src:  mysql.confident.cnf
     dest: /etc/mysql/my.cnf
     mode: o-rw
   when: ansible_facts.hostname is search("confident")
