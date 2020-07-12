@@ -17,4 +17,5 @@
     line: "# {{ item.ext_name }}\n{{item.load_strs | join('\n')}}\n"  
   with_items:
     - '{{ extensions_git }}'
+  notify: update_mw
   tags: git_ext

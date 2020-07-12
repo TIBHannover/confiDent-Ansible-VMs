@@ -20,8 +20,4 @@
     state: present
   with_items:
     - '{{ extensions_composer }}'
-
-- name: 3. Run the maintenance script
-  shell: 
-    cmd: php maintenance/update.php
-    chdir: '{{ mediawiki_path }}'
+  notify: update_mw

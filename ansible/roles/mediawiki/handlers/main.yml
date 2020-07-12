@@ -1,0 +1,5 @@
+---
+- name: update_mw
+  shell: 
+    cmd: php maintenance/update.php
+    chdir: '{{ mediawiki_path }}'  
