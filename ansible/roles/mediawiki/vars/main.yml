@@ -15,7 +15,7 @@ extensions_bundled:
   - ext_name: "SyntaxHighlight_GeSHi"
     load_strs:
       - "wfLoadExtension('SyntaxHighlight_GeSHi');" 
-      - "$wgSyntaxHighlightModels[CONTENT_MODEL_SCRIBUNTO] = 'lua';"    
+      - "$wgSyntaxHighlightModels['CONTENT_MODEL_SCRIBUNTO'] = 'lua';"    
   - ext_name: "WikiEditor"
     load_strs: 
       - "wfLoadExtension( 'WikiEditor' );"    
@@ -27,10 +27,10 @@ extensions_bundled:
       - "$wgScribuntoUseCodeEditor = true;"
   - ext_name: "SpamBlacklist"
     load_strs: 
-      - "wfLoadExtension( SpamBlacklist );"    
+      - "wfLoadExtension( 'SpamBlacklist' );"    
   - ext_name: "Nuke"
     load_strs: 
-      - "wfLoadExtension( Nuke );"    
+      - "wfLoadExtension( 'Nuke' );"    
 
 extensions_smw:
   - ext_name: "Semantic Mediawiki"
