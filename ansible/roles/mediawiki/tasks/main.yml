@@ -19,9 +19,8 @@
 - name: 3. Install mediawiki dependencies
   shell: 
     cmd: composer install --no-dev
-    chdir: '/var/www/html/mediawiki'
+    chdir: '{{ mediawiki_path }}'
   become: no
-  become_user: "{{ansible_ssh_user}}"
 
 - include: mysql.yml
   when: mediawiki_db.connection == "mysql"
@@ -73,29 +72,3 @@
 #     dest: '{{ mediawiki_path }}/LocalSettings.php'
 #     line: '$wgArticlePath = "/$1";'
 #     regexp: '\$wgArticlePath'
-
-# - name: 7a. Set MediWiki config in nginx
-#   template:
-#     src: mediawiki.nginx.conf.jinja2
-#     dest: /etc/nginx/sites-available/mediawiki
-
-# - name: 7b. Remove default
-#   file:
-#     name: /etc/nginx/sites-available/default
-#     state: absent
-
-# - name: 8a. Enable site
-#   file:
-#     src: /etc/nginx/sites-available/mediawiki
-#     dest: /etc/nginx/sites-enabled/mediawiki
-#     state: link
-
-# - name: 8b. Disable default
-#   file:
-#     name: /etc/nginx/sites-enabled/default
-#     state: absent
-
-# - name: 9. Restart nginx
-#   service:
-#     name: nginx
-#     state: restarted
