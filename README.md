@@ -26,7 +26,10 @@ Currently the Mediawiki installation is disabled.
 
 ## all roles from system.yml on remote VMs
 * run system.yml playbook: `ansible-playbook -i hosts_confident ansible/system.yml --ask-vault-pass`
-        * change only in hosts file: `hosts_confident`
+    * change only in hosts file: `hosts_confident`
+
+## single roles/tag from system.yml 
+* `ansible-playbook -i hosts_confident ansible/system.yml --tags utilities --ask-vault-pass`
 
 ## run single playbook
 * against local VM(s): `ansible-playbook -i hosts playbooks/addusers.yml --ask-vault-pass ` 
@@ -34,6 +37,10 @@ Currently the Mediawiki installation is disabled.
 
 ## run single playbook against a single inventory host
 `ansible-playbook -i hosts_confident playbooks/utilities_debug/print_info.yml --ask-vault-pass --limit tib.confident.test`
+
+
+
+
 
 ### Grobid playbook
 `ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`

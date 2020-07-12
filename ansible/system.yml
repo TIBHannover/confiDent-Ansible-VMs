@@ -4,9 +4,9 @@
   become_user: root
   vars_files: ../passwd.yml 
   roles:
-    - utilities
-    - git
-    - mariadb
-    - apache
-    - php
-    # - mediawiki
+    - {role: 'utilities', tags: 'utilities'}
+    - {role: 'git', tags: 'git'}
+    - {role: 'mariadb', tags: 'mariadb'}
+    - {role: 'apache', tags: 'apache'}
+    - {role: 'php', tags: 'php'}
+    - {role: 'mediawiki', tags: 'mediawiki'}
