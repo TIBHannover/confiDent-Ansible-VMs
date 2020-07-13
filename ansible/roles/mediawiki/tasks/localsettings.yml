@@ -8,7 +8,7 @@
   tags: localsettings
 
 
-- name: Debug in LocalSetting.php
+- name: Settings in LocalSetting.php
   blockinfile:
     path: '{{mediawiki_path}}/LocalSettings.php'
     insertafter: EOF
@@ -18,7 +18,7 @@
         # Permissions
         $wgGroupPermissions['*']['read'] = true;
         $wgGroupPermissions['*']['edit'] = false;
-        $wgGroupPermissions['user']['edit'] = false;
+        $wgGroupPermissions['user']['edit'] = true;
         $wgGroupPermissions['*']['createaccount'] = false;
         # uploads
         $wgEnableUploads = true;
@@ -32,3 +32,10 @@
         ini_set('display_errors',1);
   tags: localsettings
 
+- name: write permissions to images/
+  file:
+    path: '{{mediawiki_path}}/images'
+    state: directory
+    mode: a+rw
+    recurse: yes
+  tags: localsettings
