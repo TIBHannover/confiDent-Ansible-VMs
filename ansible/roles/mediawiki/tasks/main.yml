@@ -8,10 +8,10 @@
   git:
     repo: 'https://gerrit.wikimedia.org/r/p/mediawiki/core.git'
     dest: '{{ mediawiki_path }}'
-    version: "{{mediawiki_version|default('HEAD')}}"
+    version: "{{ mediawiki_version|default('HEAD') }}"
     depth: 1
     force: yes
-  when: stat_mediawiki_repo.stat.exists == false
+  when: not stat_mediawiki_repo
 
 - include: composer.yml
 
@@ -34,20 +34,20 @@
   file:
     path: '{{ mediawiki_path }}/LocalSettings.php'
     state: absent
-  when: stat_LocalSettings.stat.exists == True
+  when: stat_LocalSettings
 
 
 - name: 5. Install mediawiki
   command: php {{ mediawiki_path }}/maintenance/install.php
-    --dbname {{mediawiki_db.name}}
-    --dbuser {{mediawiki_db.user}}
-    --dbpass {{mediawiki_db.password}}
-    --dbtype {{mediawiki_db.connection}}
-    --lang {{mediawiki_language}}
-    --pass {{admin_user.pass}}
-    --scriptpath /'{{mediawiki_dir}}'
-    --server 'http://{{inventory_hostname}}'
-    {{instance_name}} {{admin_user.name}}
+    --dbname {{ mediawiki_db.name }}
+    --dbuser {{ mediawiki_db.user }}
+    --dbpass {{ mediawiki_db.password }}
+    --dbtype {{ mediawiki_db.connection }}
+    --lang {{ mediawiki_language }}
+    --pass {{ admin_user.pass }}
+    --scriptpath /'{{ mediawiki_dir }}'
+    --server 'http://{{ inventory_hostname }}'
+    {{ instance_name }} {{ admin_user.name }}
   args:
     creates: '{{ mediawiki_path }}/LocalSettings.php'
 
@@ -61,7 +61,7 @@
 
 - name: Mediawiki URL
   debug:
-    msg: "WIKI: http://{{inventory_hostname}}/{{mediawiki_dir}}"
+    msg: "WIKI: http://{{ inventory_hostname }}/{{ mediawiki_dir }}"
 
 # - name: 6. Enable clean URL's
 #   lineinfile:

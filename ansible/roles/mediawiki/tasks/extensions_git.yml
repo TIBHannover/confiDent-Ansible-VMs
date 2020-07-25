@@ -1,6 +1,6 @@
 ---
 - name: Install Git Extensions
-  git:  
+  git:
     repo: '{{ item.repo }}'
     dest: '{{ item.dest }}'
     version: '{{ item.version }}'
@@ -12,9 +12,9 @@
 
 - name: Enable Git Extensions
   lineinfile:
-    path: '{{mediawiki_path}}/LocalSettings.php'
+    path: '{{ mediawiki_path }}/LocalSettings.php'
     insertafter: EOF
-    line: "# {{ item.ext_name }}\n{{item.load_strs | join('\n')}}\n"  
+    line: "# {{ item.ext_name }}\n{{ item.load_strs | join('\n') }}\n"
   with_items:
     - '{{ extensions_git }}'
   notify: update_mw

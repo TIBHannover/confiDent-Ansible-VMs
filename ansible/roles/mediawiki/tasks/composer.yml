@@ -5,4 +5,3 @@
     name: composer
     state: present
   tags: php
-  
