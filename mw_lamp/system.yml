@@ -10,3 +10,4 @@
     - {role: 'apache', tags: 'apache'}
     - {role: 'php', tags: 'php'}
     - {role: 'mediawiki', tags: 'mediawiki'}
+    - {role: 'dbs-backup', tags: 'dbs-backup'}

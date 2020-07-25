@@ -1,0 +1,45 @@
+---
+- name: install rdiff-backup
+  package:
+    name: rdiff-backup
+    state: present
+
+- name: get all db names
+  shell: 'mysql -e "show databases;" '
+  register: alldbs_list
+
+- name: get only db names we want to backup
+  set_fact:
+    db_backup_dir: "/data/backup/dbs"
+    db_backup_dir_rdiff: "/data/backup/dbs-rdiff"
+    dbs_list_str: "{{ alldbs_list.stdout_lines | difference(exclude_db) | join(' ') }}"
+
+- name: create dbs backup dir
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+  with_items:
+    - '{{ db_backup_dir }}'
+    - '{{ db_backup_dir_rdiff }}'
+
+# - name: check fact
+#   debug:
+#     msg: "{{ dbs_list_str }}"
+
+- name: backup script render
+  template:
+    src: backup_dbs.sh
+    dest: /usr/local/bin
+    mode: a+x
+
+- name: backup cronjob
+  cron:
+    name: "Backup"
+    hour: "4"
+    minute: "0"
+    job: '/bin/sh /usr/local/bin/backup_dbs.sh'
+
+
+
