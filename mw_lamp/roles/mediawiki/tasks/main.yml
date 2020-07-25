@@ -1,8 +1,15 @@
 ---
+
 - name: 0. Is MW dir present?
   stat:
     path: '{{ mediawiki_path }}'
   register: stat_mediawiki_repo
+
+- name: print
+  debug:
+    msg: 'MW dir {{ mediawiki_path }} Present: {{ stat_mediawiki_repo.stat.exists }}'
+    
+
 
 - name: 1. Clone mediawiki
   git:
@@ -11,7 +18,7 @@
     version: "{{ mediawiki_version|default('HEAD') }}"
     depth: 1
     force: yes
-  when: not stat_mediawiki_repo
+  when: not stat_mediawiki_repo.stat.exists
 
 - include: composer.yml
 

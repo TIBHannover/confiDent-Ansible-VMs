@@ -4,7 +4,7 @@
   cron:
     name: "run MW jobs"
     minute: "*/1"
-    job: ' /usr/bin/php {{ mediawiki_path }}/maintenance/runJobs.php --maxtime=3600'
+    job: ' /usr/bin/php {{ mediawiki_path }}/maintenance/runJobs.php --maxtime=3600  > /dev/null'
   tags: localsettings
 
 
