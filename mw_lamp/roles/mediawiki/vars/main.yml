@@ -59,7 +59,12 @@ extensions_composer:
   - ext_name: "Semantic Result Formats"
     composer_cmd: 'mediawiki/semantic-result-formats "{{semanticformats_version}}"'
     load_strs:
-      - "wfLoadExtension('SemanticResultFormats');"
+      - "wfLoadExtension( 'SemanticResultFormats' );"
+  - ext_name: "Maps"
+    composer_cmd: 'mediawiki/maps "{{maps_version}}"'
+    load_strs:
+      - "wfLoadExtension( 'Maps' );" 
+     
 
 extensions_git:
   - ext_name: 'PageForms'
