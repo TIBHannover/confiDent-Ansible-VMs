@@ -87,3 +87,15 @@ extensions_git:
     dest: '{{ mediawiki_path }}/extensions/AdminLinks'
     load_strs: 
       - "wfLoadExtension( 'AdminLinks' );"
+  - ext_name: 'ReplaceText'
+    repo: 'https://github.com/wikimedia/mediawiki-extensions-ReplaceText.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/ReplaceText'
+    load_strs: 
+      - "wfLoadExtension( 'ReplaceText' );"
+  - ext_name: 'SemanticDrilldown'
+    repo: 'https://github.com/wikimedia/mediawiki-extensions-SemanticDrilldown.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/SemanticDrilldown'
+    load_strs:  
+      - 'require_once "$IP/extensions/SemanticDrilldown/SemanticDrilldown.php";'
