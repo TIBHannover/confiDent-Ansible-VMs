@@ -31,7 +31,7 @@
 - name: 3. info.php in web dir root
   copy:
     src: info.php
-    dest: /var/www/html
+    dest: '{{ webdir }}'
     owner: www-data
     group: www-data
 

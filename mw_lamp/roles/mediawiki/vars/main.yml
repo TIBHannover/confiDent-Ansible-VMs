@@ -32,21 +32,12 @@ extensions_bundled:
     load_strs: 
       - "wfLoadExtension( 'Nuke' );"    
 
-extensions_smw:
-  - ext_name: "Semantic Mediawiki"
-    load_strs: 
-      - "enableSemantics( '{{server_name}}' );"
-      - "$smwgShowFactbox=true;"
-      - "$smwgFieldTypeFeatures=SMW_FIELDT_CHAR_NOCASE;"
-      - "$smwgQMaxInlineLimit=1500;"
-      - "$smwgQMaxInlineLimitSets=1500;"
-      - "$smwgChangePropagationProtection=true;"
 
 extensions_composer:
   - ext_name: "Semantic Mediawiki"
     composer_cmd: 'mediawiki/semantic-media-wiki "{{smw_version}}"'
     load_strs: 
-      - "enableSemantics( '{{server_name}}' );"
+      - "enableSemantics( '{{vm_url}}{{ mw_script_path }}', true );"
       - "$smwgShowFactbox=true;"
       - "$smwgFieldTypeFeatures=SMW_FIELDT_CHAR_NOCASE;"
       - "$smwgQMaxInlineLimit=1500;"

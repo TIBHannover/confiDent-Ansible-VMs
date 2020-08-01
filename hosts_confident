@@ -6,13 +6,13 @@ ansible_become_pass='{{ confident_sudo_pass }}'
 
 
 [confident.dev]
-tib.confident.dev
+tib.confident.dev vm_url=https://develop.confident-conference.org url_path=r/ subdomain= webdir=/var/www/html/r mediawiki_path=/var/www/html/r/vanilla mw_script_path=/r/vanilla
 
 [confident.test]
-tib.confident.test
+tib.confident.test vm_url=https://test.confident-conference.org url_path=r/ subdomain= webdir=/var/www/html/r mediawiki_path=/var/www/html/r/vanilla mw_script_path=/r/vanilla
 
 [confident.service]
-tib.confident.service
+tib.confident.service vm_url=https://www.confident-conference.org url_path=r/ subdomain= webdir=/var/www/html/r mediawiki_path=/var/www/html/r/vanilla mw_script_path=/r/vanilla
 
 [confident:children]
 confident.service
