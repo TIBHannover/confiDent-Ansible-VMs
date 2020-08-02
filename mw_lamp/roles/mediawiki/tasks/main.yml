@@ -1,18 +1,13 @@
 ---
-#- name: 0. Is MW dir present?
-#  stat:
-#    path: /var/www/html/r/vanilla/
-#    state: abscent
-#  register: stat_mediawiki_repo
-#
-#- name: print
-#  debug:
-#    msg: 'MW dir {{ mediawiki_path }}'
 
-- name: 0. Create webdir
-  file:
-    path: '{{ mediawiki_path }}'
-    state: directory
+- name: 0. Is MW dir present?
+  stat:
+    path: '{{ mediawiki_path }}/maintenance'
+  register: stat_mediawiki_repo
+
+- name: print stat_mediawiki_repo
+  debug:
+    msg: '{{ stat_mediawiki_repo }}'
 
 - name: 1. Clone mediawiki
   git:
@@ -21,7 +16,7 @@
     version: "{{ mediawiki_version|default('HEAD') }}"
     depth: 1
     force: yes
-#  when: not stat_mediawiki_repo.stat.exists
+  when: not stat_mediawiki_repo.stat.exists
 
 - include: composer.yml
 
@@ -68,11 +63,11 @@
 - include: extensions_composer.yml
 
 - include: extensions_git.yml
+  notify: restart_apache2
 
 - name: Mediawiki URL
   debug:
     msg: "WIKI: {{ vm_url }}{{ mw_script_path }}"
-
 # - name: 6. Enable clean URL's
 #   lineinfile:
 #     dest: '{{ mediawiki_path }}/LocalSettings.php'

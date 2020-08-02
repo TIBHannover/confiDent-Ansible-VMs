@@ -3,3 +3,7 @@
   command:
     cmd: php maintenance/update.php
     chdir: '{{ mediawiki_path }}'
+- name: restart_apache2
+  service:
+    name: apache2
+    state: restarted

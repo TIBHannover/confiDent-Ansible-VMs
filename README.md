@@ -11,6 +11,9 @@ Currently the Mediawiki installation is disabled.
 
 ## Project Structure
 
+![](documentation/system.svg)
+
+
 * `mw_lamp/system.yml` the sequence of roles involved in the LAMP server installation
 * `mw_lamp/roles/*` tasks, files, templates, handlers for each of the roles
 * `playbooks/` assorted playbook with actions such as create user 
@@ -72,4 +75,8 @@ The vault file passwd.yml holds *secrets* used by the playbook, namely the varia
 ## Grobid playbook
 `ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`
 
+# Playbook graph generation
+with [ansible-playbook-grapher](https://github.com/haidaraM/ansible-playbook-grapher)
+
+`ansible-playbook-grapher -i hosts_confident --ask-vault-pass  --include-role-task mw_lamp/system.yml`
 
