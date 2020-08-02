@@ -32,21 +32,12 @@ extensions_bundled:
     load_strs: 
       - "wfLoadExtension( 'Nuke' );"    
 
-extensions_smw:
-  - ext_name: "Semantic Mediawiki"
-    load_strs: 
-      - "enableSemantics( '{{server_name}}' );"
-      - "$smwgShowFactbox=true;"
-      - "$smwgFieldTypeFeatures=SMW_FIELDT_CHAR_NOCASE;"
-      - "$smwgQMaxInlineLimit=1500;"
-      - "$smwgQMaxInlineLimitSets=1500;"
-      - "$smwgChangePropagationProtection=true;"
 
 extensions_composer:
   - ext_name: "Semantic Mediawiki"
     composer_cmd: 'mediawiki/semantic-media-wiki "{{smw_version}}"'
     load_strs: 
-      - "enableSemantics( '{{server_name}}' );"
+      - "enableSemantics( '{{vm_url}}{{ mw_script_path }}', true );"
       - "$smwgShowFactbox=true;"
       - "$smwgFieldTypeFeatures=SMW_FIELDT_CHAR_NOCASE;"
       - "$smwgQMaxInlineLimit=1500;"
@@ -59,7 +50,12 @@ extensions_composer:
   - ext_name: "Semantic Result Formats"
     composer_cmd: 'mediawiki/semantic-result-formats "{{semanticformats_version}}"'
     load_strs:
-      - "wfLoadExtension('SemanticResultFormats');"
+      - "wfLoadExtension( 'SemanticResultFormats' );"
+  - ext_name: "Maps"
+    composer_cmd: 'mediawiki/maps "{{maps_version}}"'
+    load_strs:
+      - "wfLoadExtension( 'Maps' );" 
+     
 
 extensions_git:
   - ext_name: 'PageForms'
@@ -87,3 +83,15 @@ extensions_git:
     dest: '{{ mediawiki_path }}/extensions/AdminLinks'
     load_strs: 
       - "wfLoadExtension( 'AdminLinks' );"
+  - ext_name: 'ReplaceText'
+    repo: 'https://github.com/wikimedia/mediawiki-extensions-ReplaceText.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/ReplaceText'
+    load_strs: 
+      - "wfLoadExtension( 'ReplaceText' );"
+  - ext_name: 'SemanticDrilldown'
+    repo: 'https://github.com/wikimedia/mediawiki-extensions-SemanticDrilldown.git'
+    version: '{{ mediawiki_version }}'
+    dest: '{{ mediawiki_path }}/extensions/SemanticDrilldown'
+    load_strs:  
+      - 'require_once "$IP/extensions/SemanticDrilldown/SemanticDrilldown.php";'

@@ -2,4 +2,5 @@
 passwd.yml
 *.retry
 test*
-playbooks-WIP/*
+playbooks-WIP/
+.idea/

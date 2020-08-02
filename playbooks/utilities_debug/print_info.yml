@@ -2,12 +2,24 @@
 - hosts: all
   vars_files: ../../passwd.yml 
   tasks:
-    - name: Ansible Facts
-      debug:
-        msg: "{{ ansible_facts }}"
-      when: ansible_facts.hostname is search("mediawiki")
+    # - name: Ansible Facts
+    #   debug:
+    #     msg: "{{ ansible_facts }}"
+    #   when: ansible_facts.hostname is search("mediawiki")
 
-    - name: Hostname
+    # - name: Hostname
+    #   debug:
+    #     msg: "{{ ansible_facts.hostname }}"
+    #   when: ansible_facts.hostname is search("confident")
+    - set_fact:
+        instance_name: 'vanilla'
+        hostname: '{{ ansible_hostname }}'
+        # script_path: '{% if url_path %}{{url_path}}{% endif %}{{instance_name}}'
+        # mediawiki_path: '{{ webdir }}{{ mw_script_path }}'
+        # mediawiki_language: 'en'
+        # mediawiki_version: REL1_34
+        # server_name: '{% if subdomain %}{{subdomain}}.{% endif %}{{hostname}}'
+  
+    - name: URL
       debug:
-        msg: "{{ ansible_facts.hostname }}"
-      when: ansible_facts.hostname is search("confident")
+        msg: "{{ vm_url }} {{url_path}} {{ webdir }} subdomain: {{ subdomain }} {{hostname}}"

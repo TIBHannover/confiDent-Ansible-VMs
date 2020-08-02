@@ -1,17 +1,22 @@
 ---
+
 - name: 0. Is MW dir present?
   stat:
-    path: '{{ mediawiki_path }}'
+    path: '{{ mediawiki_path }}/maintenance'
   register: stat_mediawiki_repo
+
+- name: print stat_mediawiki_repo
+  debug:
+    msg: '{{ stat_mediawiki_repo }}'
 
 - name: 1. Clone mediawiki
   git:
     repo: 'https://gerrit.wikimedia.org/r/p/mediawiki/core.git'
     dest: '{{ mediawiki_path }}'
-    version: "{{mediawiki_version|default('HEAD')}}"
+    version: "{{ mediawiki_version|default('HEAD') }}"
     depth: 1
     force: yes
-  when: stat_mediawiki_repo.stat.exists == false
+  when: not stat_mediawiki_repo.stat.exists
 
 - include: composer.yml
 
@@ -34,20 +39,20 @@
   file:
     path: '{{ mediawiki_path }}/LocalSettings.php'
     state: absent
-  when: stat_LocalSettings.stat.exists == True
+  when: stat_LocalSettings
 
 
 - name: 5. Install mediawiki
   command: php {{ mediawiki_path }}/maintenance/install.php
-    --dbname {{mediawiki_db.name}}
-    --dbuser {{mediawiki_db.user}}
-    --dbpass {{mediawiki_db.password}}
-    --dbtype {{mediawiki_db.connection}}
-    --lang {{mediawiki_language}}
-    --pass {{admin_user.pass}}
-    --scriptpath /'{{mediawiki_dir}}'
-    --server 'http://{{inventory_hostname}}'
-    {{instance_name}} {{admin_user.name}}
+    --dbname {{ mediawiki_db.name }}
+    --dbuser {{ mediawiki_db.user }}
+    --dbpass {{ mediawiki_db.password }}
+    --dbtype {{ mediawiki_db.connection }}
+    --lang {{ mediawiki_language }}
+    --pass {{ admin_user.pass }}
+    --scriptpath '{{ mw_script_path }}'
+    --server '{{ vm_url }}'
+    {{ instance_name }} {{ admin_user.name }}
   args:
     creates: '{{ mediawiki_path }}/LocalSettings.php'
 
@@ -58,11 +63,11 @@
 - include: extensions_composer.yml
 
 - include: extensions_git.yml
+  notify: restart_apache2
 
 - name: Mediawiki URL
   debug:
-    msg: "WIKI: http://{{inventory_hostname}}/{{mediawiki_dir}}"
-
+    msg: "WIKI: {{ vm_url }}{{ mw_script_path }}"
 # - name: 6. Enable clean URL's
 #   lineinfile:
 #     dest: '{{ mediawiki_path }}/LocalSettings.php'

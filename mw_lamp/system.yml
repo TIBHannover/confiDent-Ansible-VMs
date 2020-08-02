@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   become_user: root
-  vars_files: ../passwd.yml 
+  vars_files: ../passwd.yml
   roles:
     - {role: 'utilities', tags: 'utilities'}
     - {role: 'git', tags: 'git'}
@@ -10,3 +10,4 @@
     - {role: 'apache', tags: 'apache'}
     - {role: 'php', tags: 'php'}
     - {role: 'mediawiki', tags: 'mediawiki'}
+    - {role: 'dbs-backup', tags: 'dbs-backup'}

@@ -1,16 +1,16 @@
 ---
 
 - name: runJobs every minute
-  cron: 
+  cron:
     name: "run MW jobs"
     minute: "*/1"
-    job: ' /usr/bin/php {{ mediawiki_path }}/maintenance/runJobs.php --maxtime=3600'
+    job: ' /usr/bin/php {{ mediawiki_path }}/maintenance/runJobs.php --maxtime=3600  > /dev/null'
   tags: localsettings
 
 
 - name: Settings in LocalSetting.php
   blockinfile:
-    path: '{{mediawiki_path}}/LocalSettings.php'
+    path: '{{ mediawiki_path }}/LocalSettings.php'
     insertafter: EOF
     block: |
         # Job are run by cron
@@ -34,7 +34,7 @@
 
 - name: write permissions to images/
   file:
-    path: '{{mediawiki_path}}/images'
+    path: '{{ mediawiki_path }}/images'
     state: directory
     mode: a+rw
     recurse: yes

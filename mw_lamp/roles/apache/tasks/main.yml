@@ -4,7 +4,7 @@
     name: apache2
     state: present
 
-- name: 2. Apache2 mdoules 
+- name: 2. Apache2 modules
   apache2_module:
       state: present
       name: "{{ item }}"

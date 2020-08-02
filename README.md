@@ -11,8 +11,11 @@ Currently the Mediawiki installation is disabled.
 
 ## Project Structure
 
-* `ansible/system.yml` the sequence of roles involved in the LAMP server installation
-* `ansible/roles/*` tasks, files, templates, handlers for each of the roles
+![](documentation/system.svg)
+
+
+* `mw_lamp/system.yml` the sequence of roles involved in the LAMP server installation
+* `mw_lamp/roles/*` tasks, files, templates, handlers for each of the roles
 * `playbooks/` assorted playbook with actions such as create user 
 * `hosts` ansible inventory file for local VM (default in `ansible.cfg`)
 * `hosts_confident` ansible inventory file for confiDent VMs
@@ -20,8 +23,8 @@ Currently the Mediawiki installation is disabled.
 
 
 ## Variables' locations:
-* <s>MW & MariaDB vars: `ansible/roles/mediawiki/defaults/main.yml`</s>
-* <s>MW extensions: `ansible/roles/mediawiki/vars/extensions.yml`</s>
+* <s>MW & MariaDB vars: `mw_lamp/roles/mediawiki/defaults/main.yml`</s>
+* <s>MW extensions: `mw_lamp/roles/mediawiki/vars/extensions.yml`</s>
 * Usernames and keys (used by `playbooks/addusers.yml`) `playbooks/vars/users.yml`
 
 
@@ -38,14 +41,14 @@ The vault file passwd.yml holds *secrets* used by the playbook, namely the varia
 # Run
 ## all roles from system.yml on local VM
 * bring VM up `vagrant up`
-* run system.yml playbook: `ansible-playbook -i hosts ansible/system.yml --ask-vault-pass`
+* run system.yml playbook: `ansible-playbook -i hosts mw_lamp/system.yml --ask-vault-pass`
 
 ## all roles from system.yml on remote VMs
-* run system.yml playbook: `ansible-playbook -i hosts_confident ansible/system.yml --ask-vault-pass`
+* run system.yml playbook: `ansible-playbook -i hosts_confident mw_lamp/system.yml --ask-vault-pass`
     * change only in hosts file: `hosts_confident`
 
 ## single roles/tag from system.yml 
-* `ansible-playbook -i hosts_confident ansible/system.yml --tags utilities --ask-vault-pass`
+* `ansible-playbook -i hosts_confident mw_lamp/system.yml --tags utilities --ask-vault-pass`
 
 ## run single playbook
 * against local VM(s): `ansible-playbook -i hosts playbooks/addusers.yml --ask-vault-pass ` 
@@ -72,4 +75,8 @@ The vault file passwd.yml holds *secrets* used by the playbook, namely the varia
 ## Grobid playbook
 `ansible-playbook playbooks/grobid/main.yaml -i hosts --ask-vault-pass`
 
+# Playbook graph generation
+with [ansible-playbook-grapher](https://github.com/haidaraM/ansible-playbook-grapher)
+
+`ansible-playbook-grapher -i hosts_confident --ask-vault-pass  --include-role-task mw_lamp/system.yml`
 

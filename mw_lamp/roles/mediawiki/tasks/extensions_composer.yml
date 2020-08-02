@@ -4,19 +4,19 @@
     msg: composer require {{ item.composer_cmd }} --update-no-dev
   with_items:
     - '{{ extensions_composer }}'
-  
+
 - name: 1. Install Composer Extensions
-  shell:
+  command:
     cmd: composer require {{ item.composer_cmd }} --update-no-dev
     chdir: '{{ mediawiki_path }}'
   with_items:
     - '{{ extensions_composer }}'
-      
+
 - name: 2. Enable Composer Extensions
   lineinfile:
     path: '{{ mediawiki_path }}/LocalSettings.php'
     insertafter: 'EOF'
-    line: "# {{ item.ext_name }}\n{{item.load_strs | join('\n')}}\n"
+    line: "# {{ item.ext_name }}\n{{ item.load_strs | join('\n') }}\n"
     state: present
   with_items:
     - '{{ extensions_composer }}'
