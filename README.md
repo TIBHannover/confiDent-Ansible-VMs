@@ -1,3 +1,8 @@
+**Repository moved to https://git.tib.eu/confident/confiDent-Ansible-VMs**
+
+
+---
+
 # confiDent - Ansible VM management playbooks
 Fork of [semantic-mediawiki-box](https://github.com/TIBHannover/semantic-mediawiki-box), by [Mirjan Hoffmann](https://github.com/mirjan-hoffmann)
 
